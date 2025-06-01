@@ -68,14 +68,14 @@ export async function updateUser(data: UpdateUserData) {
       }
     );
 
-    return result.updatedUser;
+    return { success: true, ...result };
   } catch (error) {
     if (error instanceof Error) {
       console.error("Error updating user and industry:", error.message);
     } else {
       console.error("Error updating user and industry:", error);
     }
-    throw new Error("Failed to update profile");
+    throw new Error("Failed to update profile" + error);
   }
 }
 

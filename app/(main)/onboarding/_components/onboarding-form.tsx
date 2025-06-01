@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { OnboardingFormValues, onboardingSchema } from "@/app/lib/schema";
+import { onboardingSchema } from "@/app/lib/schema";
 import {
   Select,
   SelectContent,
@@ -25,6 +25,11 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import useFetch from "@/hooks/use-fetch";
+import { updateUser } from "@/actions/user";
+import z from "zod";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 type Industry = {
   id: string;
   name: string;
@@ -35,12 +40,28 @@ type OnboardingFormProps = {
   industries: Industry[];
 };
 
+export type UpdateUserData = {
+  industry: string;
+  subIndustry: string;
+  experience: number;
+  bio?: string;
+  skills?: string[];
+};
+
+type OnboardingFormValues = z.infer<typeof onboardingSchema>;
+
 export default function OnboardingForm({ industries }: OnboardingFormProps) {
-  // const router = useRouter();
+  const router = useRouter();
 
   const [selectedIndustry, setSelectedIndustry] = useState<
     Industry | undefined
   >(undefined);
+
+  const {
+    loading: updateLoading,
+    fn: updateUserFn,
+    data: updateResult,
+  } = useFetch(updateUser);
 
   const {
     register,
@@ -52,9 +73,32 @@ export default function OnboardingForm({ industries }: OnboardingFormProps) {
     resolver: zodResolver(onboardingSchema),
   });
 
-  const onSubmit = (values: OnboardingFormValues) => {
+  const onSubmit = async (values: OnboardingFormValues) => {
     console.log(values);
+
+    try {
+      const formattedIndustry = `${values.industry}-${values.subIndustry
+        .toLowerCase()
+        .replace(/ /g, "-")}`;
+
+      await updateUserFn({
+        industry: formattedIndustry,
+        experience: values.experience,
+        bio: values.bio ?? "", // fallback if bio is undefined
+        skills: values.skills ?? [], // fallback if skills is undefined
+      });
+    } catch (error: unknown) {
+      console.error("Onboarding error:", error);
+    }
   };
+
+  useEffect(() => {
+    if (updateResult && !updateLoading) {
+      toast.success("Profile completed successfully!");
+      router.push("/dashboard");
+      router.refresh();
+    }
+  }, [updateResult, updateLoading]);
 
   const watchIndustry = watch("industry");
 
@@ -176,8 +220,15 @@ export default function OnboardingForm({ industries }: OnboardingFormProps) {
               )}
             </div>
 
-            <Button type="submit" className="w-full">
-              Complete Profile
+            <Button type="submit" className="w-full" disabled={!!updateLoading}>
+              {updateLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                "Complete Profile"
+              )}
             </Button>
           </form>
         </CardContent>
