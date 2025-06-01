@@ -111,13 +111,13 @@ model IndustryInsight {
 
 
 enum DemandLevel {
-  HIGH 
-  LOW
-  MEDIUM
+  High
+  Low
+  Medium
 }
 
 enum MarketOutLook{
-POSITIVE
-NEUTRAL
-NEGATIVE
+Positive
+Neutral
+Negative
 }

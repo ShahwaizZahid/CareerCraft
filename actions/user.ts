@@ -40,8 +40,8 @@ export async function updateUser(data: UpdateUserData) {
             data: {
               industry: data.industry,
               ...insights,
-              demandLevel: insights.demandLevel.toUpperCase(),
-              marketOutlook: insights.marketOutlook.toUpperCase(),
+              demandLevel: insights.demandLevel,
+              marketOutlook: insights.marketOutlook,
               nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             },
           });
