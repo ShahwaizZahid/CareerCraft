@@ -1,11 +1,11 @@
 import { Brain, Target, Trophy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function StatsCards({ assessments }) {
+export default function StatsCards({ assessments }: any) {
   const getAverageScore = () => {
     if (!assessments?.length) return 0;
     const total = assessments.reduce(
-      (sum, assessment) => sum + assessment.quizScore,
+      (sum: any, assessment: { quizScore: any }) => sum + assessment.quizScore,
       0
     );
     return (total / assessments.length).toFixed(1);
@@ -19,7 +19,8 @@ export default function StatsCards({ assessments }) {
   const getTotalQuestions = () => {
     if (!assessments?.length) return 0;
     return assessments.reduce(
-      (sum, assessment) => sum + assessment.questions.length,
+      (sum: any, assessment: { questions: string | any[] }) =>
+        sum + assessment.questions.length,
       0
     );
   };

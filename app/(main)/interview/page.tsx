@@ -4,6 +4,7 @@ import { getAssessments } from "@/actions/interview";
 
 const InterviewPage = async () => {
   const assessments = await getAssessments();
+
   return (
     <>
       <div>
