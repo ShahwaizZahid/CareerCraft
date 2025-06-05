@@ -23,6 +23,7 @@ import { useUser } from "@clerk/nextjs";
 import MDEditor from "@uiw/react-md-editor";
 import { entriesToMarkdown } from "@/app/lib/helper";
 import html2pdf from "html2pdf.js/dist/html2pdf.min.js";
+import { toast } from "sonner";
 
 export default function ResumeBuilder({ initialContent }) {
   const [activeTab, setActiveTab] = useState("edit");
@@ -69,6 +70,15 @@ export default function ResumeBuilder({ initialContent }) {
       setPreviewContent(newContent ? newContent : initialContent);
     }
   }, [formValues, activeTab]);
+
+  useEffect(() => {
+    if (saveResult && !isSaving) {
+      toast.success("Resume saved successfully!");
+    }
+    if (saveError) {
+      toast.error(saveError.message || "Failed to save resume");
+    }
+  }, [saveResult, saveError, isSaving]);
 
   const getContactMarkdown = () => {
     const { contactInfo } = formValues;
@@ -120,7 +130,17 @@ export default function ResumeBuilder({ initialContent }) {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
+    try {
+      const formattedContent = previewContent
+        .replace(/\n/g, "\n") // Normalize newlines
+        .replace(/\n\s*\n/g, "\n\n") // Normalize multiple newlines to double newlines
+        .trim();
+
+      console.log(previewContent, formattedContent);
+      await saveResumeFn(previewContent);
+    } catch (error) {
+      console.error("Save error:", error);
+    }
   };
 
   return (
@@ -130,9 +150,22 @@ export default function ResumeBuilder({ initialContent }) {
           Resume Builder
         </h1>
         <div className="space-x-2">
-          <Button variant="destructive">
-            <Save className="h-4 w-4" />
-            Save
+          <Button
+            variant="destructive"
+            onClick={handleSubmit(onSubmit)}
+            disabled={!!isSaving}
+          >
+            {isSaving ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              <>
+                <Save className="h-4 w-4" />
+                Save
+              </>
+            )}
           </Button>
           <Button onClick={generatePDF} disabled={isGenerating}>
             {isGenerating ? (
