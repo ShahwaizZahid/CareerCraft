@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, Save } from "lucide-react";
+import { AlertTriangle, Download, Edit, Monitor, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState } from "react";
@@ -12,12 +12,15 @@ import { saveResume } from "@/actions/resume";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import EntryForm from "./entry-form";
+import { useUser } from "@clerk/nextjs";
+import MDEditor from "@uiw/react-md-editor";
+import { entriesToMarkdown } from "@/app/lib/helper";
 
 export default function ResumeBuilder({ initialContent }) {
   const [activeTab, setActiveTab] = useState("edit");
-  // const [previewContent, setPreviewContent] = useState(initialContent);
-  // const { user } = useUser();
-  // const [resumeMode, setResumeMode] = useState("preview");
+  const [previewContent, setPreviewContent] = useState(initialContent);
+  const { user } = useUser();
+  const [resumeMode, setResumeMode] = useState("preview");
 
   const {
     control,
@@ -49,6 +52,43 @@ export default function ResumeBuilder({ initialContent }) {
   useEffect(() => {
     if (initialContent) setActiveTab("preview");
   }, [initialContent]);
+
+  // Update preview content when form values change
+  useEffect(() => {
+    if (activeTab === "edit") {
+      const newContent = getCombinedContent();
+      setPreviewContent(newContent ? newContent : initialContent);
+    }
+  }, [formValues, activeTab]);
+
+  const getContactMarkdown = () => {
+    const { contactInfo } = formValues;
+    const parts = [];
+    if (contactInfo.email) parts.push(`📧 ${contactInfo.email}`);
+    if (contactInfo.mobile) parts.push(`📱 ${contactInfo.mobile}`);
+    if (contactInfo.linkedin)
+      parts.push(`💼 [LinkedIn](${contactInfo.linkedin})`);
+    if (contactInfo.twitter) parts.push(`🐦 [Twitter](${contactInfo.twitter})`);
+
+    return parts.length > 0
+      ? `## <div align="center">${user?.fullName}</div>
+        \n\n<div align="center">\n\n${parts.join(" | ")}\n\n</div>`
+      : "";
+  };
+
+  const getCombinedContent = () => {
+    const { summary, skills, experience, education, projects } = formValues;
+    return [
+      getContactMarkdown(),
+      summary && `## Professional Summary\n\n${summary}`,
+      skills && `## Skills\n\n${skills}`,
+      entriesToMarkdown(experience, "Work Experience"),
+      entriesToMarkdown(education, "Education"),
+      entriesToMarkdown(projects, "Projects"),
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+  };
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -242,7 +282,48 @@ export default function ResumeBuilder({ initialContent }) {
           </form>
         </TabsContent>
 
-        <TabsContent value="preview">Change your password here</TabsContent>
+        <TabsContent value="preview">
+          {activeTab === "preview" && (
+            <Button
+              variant="link"
+              type="button"
+              className="mb-2"
+              onClick={() =>
+                setResumeMode(resumeMode === "preview" ? "edit" : "preview")
+              }
+            >
+              {resumeMode === "preview" ? (
+                <>
+                  <Edit className="h-4 w-4" />
+                  Edit Resume
+                </>
+              ) : (
+                <>
+                  <Monitor className="h-4 w-4" />
+                  Show Preview
+                </>
+              )}
+            </Button>
+          )}
+
+          {resumeMode !== "preview" && (
+            <div className="flex p-3 gap-2 items-center border-2 border-yellow-600 text-yellow-600 rounded mb-2">
+              <AlertTriangle className="h-5 w-5" />
+              <span className="text-sm">
+                You will lose editied markdown if you update the form data.
+              </span>
+            </div>
+          )}
+
+          <div className="border rounded-lg">
+            <MDEditor
+              value={previewContent}
+              onChange={setPreviewContent}
+              height={800}
+              preview={resumeMode as "edit" | "preview" | "live"}
+            />
+          </div>
+        </TabsContent>
       </Tabs>
     </div>
   );
