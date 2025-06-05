@@ -12,8 +12,6 @@ type generateCoverLetterProps = {
   jobDescription: string;
 };
 export async function generateCoverLetter(data: generateCoverLetterProps) {
-  console.log("datasaydasjjkasjs", data);
-
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 

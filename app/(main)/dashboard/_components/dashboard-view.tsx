@@ -1,5 +1,9 @@
 "use client";
 
+import {
+  IndustryInsightProps,
+  SalaryRangeProps,
+} from "@/app/types/dashboardTypes.ts/types";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -29,29 +33,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export type IndustryInsight = {
-  id: string;
-  industry: string;
-  salaryRanges: SalaryRangeProps[];
-  growthRate: number;
-  demandLevel: string;
-  topSkills: string[];
-  marketOutlook: string;
-  keyTrends: string[];
-  recommendedSkills: string[];
-  lastUpdated: Date;
-  nextUpdate: Date;
-};
-
-type SalaryRangeProps = {
-  role: string;
-  min: number;
-  max: number;
-  median: number;
-  location: string;
-};
-
-const DashboardView = ({ insights }: any) => {
+const DashboardView = (insights: IndustryInsightProps) => {
   // Transform salary data for the chart
   const salaryData = insights.salaryRanges.map((range: SalaryRangeProps) => ({
     name: range.role,
