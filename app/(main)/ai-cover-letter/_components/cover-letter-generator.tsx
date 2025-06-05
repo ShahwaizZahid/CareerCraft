@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -18,6 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { generateCoverLetter } from "@/actions/cover-letter";
 import useFetch from "@/hooks/use-fetch";
 import { coverLetterSchema } from "@/app/lib/schema";
+import { z } from "zod";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -47,12 +49,15 @@ export default function CoverLetterGenerator() {
       reset();
     }
   }, [generatedLetter]);
-
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: z.infer<typeof coverLetterSchema>) => {
     try {
       await generateLetterFn(data);
     } catch (error: unknown) {
-      toast.error(error.message || "Failed to generate cover letter");
+      if (error instanceof Error) {
+        toast.error(error.message || "Failed to generate cover letter");
+      } else {
+        toast.error("Failed to generate cover letter");
+      }
     }
   };
 

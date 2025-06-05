@@ -24,8 +24,13 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { deleteCoverLetter } from "@/actions/cover-letter";
+import { CoverLetterProps } from "@/app/types/coverletterTypes/types";
 
-export default function CoverLetterList({ coverLetters }) {
+export default function CoverLetterList({
+  coverLetters,
+}: {
+  coverLetters: CoverLetterProps[];
+}) {
   const router = useRouter();
 
   const handleDelete = async (id: string) => {
