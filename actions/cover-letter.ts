@@ -102,13 +102,15 @@ export async function getCoverLetter(id: string) {
   });
 
   if (!user) throw new Error("User not found");
-
-  return await db.coverLetter.findUnique({
+  const coverLetter = await db.coverLetter.findUnique({
     where: {
       id,
       userId: user.id,
     },
   });
+
+  console.log(coverLetter);
+  return coverLetter;
 }
 
 export async function deleteCoverLetter(id: string) {
