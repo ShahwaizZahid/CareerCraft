@@ -17,6 +17,7 @@ import QuizResult from "./quiz-result";
 import useFetch from "@/hooks/use-fetch";
 import { BarLoader } from "react-spinners";
 import { Loader2 } from "lucide-react";
+import { QuizResultQuestionProps } from "@/app/types/interviewTypes/types";
 
 export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -101,7 +102,18 @@ export default function Quiz() {
   if (resultData) {
     return (
       <div className="mx-2">
-        <QuizResult result={resultData} onStartNew={startNewQuiz} />
+        <QuizResult
+          result={{
+            quizScore: resultData.quizScore,
+            improvementTip: resultData.improvementTip ?? undefined,
+            questions: Array.isArray(resultData.questions)
+              ? (resultData.questions.filter(
+                  Boolean
+                ) as QuizResultQuestionProps[])
+              : [],
+          }}
+          onStartNew={startNewQuiz}
+        />
       </div>
     );
   }

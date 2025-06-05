@@ -18,13 +18,20 @@ import {
 } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import { AssessmentProps } from "@/app/types/interviewTypes/types";
 
-export default function PerformanceChart({ assessments }: any) {
-  const [chartData, setChartData] = useState([]);
+export default function PerformanceChart({
+  assessments,
+}: {
+  assessments: AssessmentProps[];
+}) {
+  const [chartData, setChartData] = useState<{ date: string; score: number }[]>(
+    []
+  );
 
   useEffect(() => {
     if (assessments) {
-      const formattedData = assessments.map((assessment: any) => ({
+      const formattedData = assessments.map((assessment: AssessmentProps) => ({
         date: format(new Date(assessment.createdAt), "MMM dd"),
         score: assessment.quizScore,
       }));

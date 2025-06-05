@@ -5,11 +5,29 @@ import { Button } from "@/components/ui/button";
 import { CardContent, CardFooter } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
+type QuizResultQuestion = {
+  question: string;
+  userAnswer: string;
+  answer: string;
+  isCorrect: boolean;
+  explanation: string;
+};
+
+type QuizResultProps = {
+  result: {
+    quizScore: number;
+    improvementTip?: string;
+    questions: QuizResultQuestion[];
+  };
+  hideStartNew?: boolean;
+  onStartNew?: () => void;
+};
+
 export default function QuizResult({
   result,
   hideStartNew = false,
   onStartNew,
-}) {
+}: QuizResultProps) {
   if (!result) return null;
 
   return (

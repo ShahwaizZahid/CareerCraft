@@ -3,9 +3,18 @@ import StatsCards from "./_components/stats-cards";
 import { getAssessments } from "@/actions/interview";
 import PerformanceChart from "./_components/performace-chart";
 import QuizList from "./_components/quiz-list";
+import {
+  AssessmentProps,
+  AssessmentQuestionProps,
+} from "@/app/types/interviewTypes/types";
 
 const InterviewPage = async () => {
-  const assessments = await getAssessments();
+  const raw = await getAssessments();
+
+  const assessments: AssessmentProps[] = raw.map((item) => ({
+    ...item,
+    questions: item.questions as AssessmentQuestionProps[], // 👈 safely cast here
+  }));
 
   return (
     <>
