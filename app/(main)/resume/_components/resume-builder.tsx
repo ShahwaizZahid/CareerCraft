@@ -129,7 +129,7 @@ export default function ResumeBuilder({ initialContent }) {
     }
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     try {
       const formattedContent = previewContent
         .replace(/\n/g, "\n") // Normalize newlines

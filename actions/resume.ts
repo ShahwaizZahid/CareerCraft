@@ -8,6 +8,11 @@ import { revalidatePath } from "next/cache";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+type ImproveAIProps = {
+  current: string;
+  type: "experience" | "education" | "project"; // or just `string` if it's more flexible
+};
+
 export async function saveResume(content: string) {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
@@ -57,7 +62,7 @@ export async function getResume() {
   });
 }
 
-export async function improveWithAI({ current, type }) {
+export async function improveWithAI({ current, type }: ImproveAIProps) {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
