@@ -68,6 +68,7 @@ export default function ResumeBuilder({ initialContent }: ResumeBuilderProps) {
       const newContent = getCombinedContent();
       setPreviewContent(newContent ? newContent : initialContent);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValues, activeTab]);
 
   useEffect(() => {

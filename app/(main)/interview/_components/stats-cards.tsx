@@ -1,15 +1,7 @@
 import { Brain, Target, Trophy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  AssessmentProps,
-  AssessmentQuestionProps,
-} from "@/app/types/interviewTypes/types";
 
-export default function StatsCards({
-  assessments,
-}: {
-  assessments: AssessmentProps[];
-}) {
+export default function StatsCards({ assessments }) {
   const getAverageScore = () => {
     if (!assessments?.length) return 0;
     const total = assessments.reduce(
@@ -28,7 +20,7 @@ export default function StatsCards({
   const getTotalQuestions = () => {
     if (!assessments?.length) return 0;
     return assessments.reduce(
-      (sum: number, assessment: { questions: AssessmentQuestionProps[] }) =>
+      (sum: number, assessment: { questions }) =>
         sum + assessment.questions.length,
       0
     );

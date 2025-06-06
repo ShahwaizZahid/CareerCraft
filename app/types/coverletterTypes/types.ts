@@ -10,10 +10,6 @@ export type CoverLetterProps = {
   updatedAt: string | Date;
 };
 
-export type EditCoverLetterPageProps = {
-  params: { id: string };
-};
-
 export type CoverLetterPreviewProps = {
   content: string;
 };

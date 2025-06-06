@@ -98,6 +98,7 @@ export default function OnboardingForm({ industries }: OnboardingFormProps) {
       router.push("/dashboard");
       router.refresh();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateResult, updateLoading]);
 
   const watchIndustry = watch("industry");
