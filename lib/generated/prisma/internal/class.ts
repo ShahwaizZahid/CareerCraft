@@ -22,7 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client-ts"
     },
     "output": {
-      "value": "/home/shahwaiz-mughal/CareerCraft/lib/generated/prisma",
+      "value": "/home/shahwaiz-mughal/Coding/CareerCraft/lib/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -36,7 +36,7 @@ const config: runtime.GetPrismaClientConfig = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/shahwaiz-mughal/CareerCraft/prisma/schema.prisma",
+    "sourceFilePath": "/home/shahwaiz-mughal/Coding/CareerCraft/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../../prisma",
