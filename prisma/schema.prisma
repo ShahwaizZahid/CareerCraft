@@ -5,9 +5,10 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-ts"
-  output   = "../lib/generated/prisma"
+  provider = "prisma-client-js"
+  // no output path, so it goes to default `node_modules/@prisma/client`
 }
+
 
 datasource db {
   provider = "postgresql"
