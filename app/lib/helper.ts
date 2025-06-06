@@ -1,5 +1,9 @@
-// Helper function to convert entries to markdown
-export function entriesToMarkdown(entries, type) {
+import type { Entry } from "@/app/types/resumeTypes/types";
+
+export function entriesToMarkdown(
+  entries: Entry[],
+  type: "Experience" | "Education" | "Project"
+): string {
   if (!entries?.length) return "";
 
   return (

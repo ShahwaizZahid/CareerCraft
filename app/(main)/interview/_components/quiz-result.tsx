@@ -5,12 +5,26 @@ import { Button } from "@/components/ui/button";
 import { CardContent, CardFooter } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
+import type {
+  QuizQuestion,
+  QuizResult as QuizResultType,
+} from "@/app/types/interviewTypes/types";
+
+type QuizResultProps = {
+  result: QuizResultType | null;
+  hideStartNew?: boolean;
+  onStartNew?: () => void;
+};
+
 export default function QuizResult({
   result,
   hideStartNew = false,
   onStartNew,
-}) {
+}: QuizResultProps) {
+  console.log("result", result);
+
   if (!result) return null;
+  const questions = result.questions as QuizQuestion[];
 
   return (
     <div className="mx-auto">
@@ -37,7 +51,7 @@ export default function QuizResult({
         {/* Questions Review */}
         <div className="space-y-4">
           <h3 className="font-medium">Question Review</h3>
-          {result.questions.map((q, index) => (
+          {questions.map((q, index: number) => (
             <div key={index} className="border rounded-lg p-4 space-y-2">
               <div className="flex items-start justify-between gap-2">
                 <p className="font-medium">{q.question}</p>
@@ -60,7 +74,7 @@ export default function QuizResult({
         </div>
       </CardContent>
 
-      {!hideStartNew && (
+      {!hideStartNew && onStartNew && (
         <CardFooter>
           <Button onClick={onStartNew} className="w-full">
             Start New Quiz

@@ -18,10 +18,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import QuizResult from "./quiz-result";
+import { QuizResult as QuizResultType } from "@/app/types/interviewTypes/types";
 
-export default function QuizList({ assessments }) {
+type QuizListProps = {
+  assessments: QuizResultType[];
+};
+
+export default function QuizList({ assessments }: QuizListProps) {
   const router = useRouter();
-  const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [selectedQuiz, setSelectedQuiz] = useState<QuizResultType | null>(null);
 
   return (
     <>
@@ -81,11 +86,13 @@ export default function QuizList({ assessments }) {
           <DialogHeader>
             <DialogTitle></DialogTitle>
           </DialogHeader>
-          <QuizResult
-            result={selectedQuiz}
-            hideStartNew
-            onStartNew={() => router.push("/interview/mock")}
-          />
+          {selectedQuiz && (
+            <QuizResult
+              result={selectedQuiz}
+              hideStartNew
+              onStartNew={() => router.push("/interview/mock")}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </>

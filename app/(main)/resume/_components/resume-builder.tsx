@@ -101,9 +101,9 @@ export default function ResumeBuilder({ initialContent }: ResumeBuilderProps) {
       getContactMarkdown(),
       summary && `## Professional Summary\n\n${summary}`,
       skills && `## Skills\n\n${skills}`,
-      entriesToMarkdown(experience, "Work Experience"),
+      entriesToMarkdown(experience, "Experience"),
       entriesToMarkdown(education, "Education"),
-      entriesToMarkdown(projects, "Projects"),
+      entriesToMarkdown(projects, "Project"),
     ]
       .filter(Boolean)
       .join("\n\n");

@@ -1,7 +1,12 @@
 import { Brain, Target, Trophy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { QuizResult as QuizResultType } from "@/app/types/interviewTypes/types";
 
-export default function StatsCards({ assessments }) {
+type StatsCardsProps = {
+  assessments: QuizResultType[];
+};
+
+export default function StatsCards({ assessments }: StatsCardsProps) {
   const getAverageScore = () => {
     if (!assessments?.length) return 0;
     const total = assessments.reduce(
@@ -20,8 +25,7 @@ export default function StatsCards({ assessments }) {
   const getTotalQuestions = () => {
     if (!assessments?.length) return 0;
     return assessments.reduce(
-      (sum: number, assessment: { questions }) =>
-        sum + assessment.questions.length,
+      (sum, assessment) => sum + assessment.questions.length,
       0
     );
   };
