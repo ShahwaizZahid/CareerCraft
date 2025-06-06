@@ -11,6 +11,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Career Craft",
   description: "",
+  icons: {
+    icon: "/favicons.svg", // or .png or .ico
+  },
 };
 
 export default function RootLayout({
