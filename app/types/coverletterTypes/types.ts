@@ -1,15 +1,11 @@
-export type CoverLetterProps = {
+export type CoverLetter = {
   id: string;
+  createdAt: Date;
+  updatedAt: Date;
   userId: string;
   content: string;
-  jobDescription?: string;
+  jobDescription: string | null;
   companyName: string;
   jobTitle: string;
   status: string;
-  createdAt: string | Date;
-  updatedAt: string | Date;
-};
-
-export type CoverLetterPreviewProps = {
-  content: string;
 };
