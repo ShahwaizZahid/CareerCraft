@@ -27,9 +27,6 @@ const IndustryInsightsPage = async () => {
     redirect("/onboarding");
   }
 
-  if (insights) {
-    return <div>No insights available.</div>;
-  }
   return (
     <div className="container mx-auto">
       <DashboardView {...(insights as unknown as IndustryInsightProps)} />

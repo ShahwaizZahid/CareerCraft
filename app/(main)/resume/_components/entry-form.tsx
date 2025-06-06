@@ -1,6 +1,7 @@
 "use client";
 import { improveWithAI } from "@/actions/resume";
 import { entrySchema } from "@/app/lib/schema";
+import { Entry, EntryFormProps } from "@/app/types/resumeTypes/types";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -26,7 +27,7 @@ const formatDisplayDate = (dateString: string) => {
   return format(date, "MMM yyyy");
 };
 
-const EntryForm = ({ type, entries, onChange }) => {
+const EntryForm: React.FC<EntryFormProps> = ({ type, entries, onChange }) => {
   const [isAdding, setIsAdding] = useState(false);
 
   const {
@@ -58,8 +59,8 @@ const EntryForm = ({ type, entries, onChange }) => {
   const handleAdd = handleValidation((data) => {
     const formattedEntry = {
       ...data,
-      startDate: formatDisplayDate(data.startDate),
-      endDate: data.current ? "" : formatDisplayDate(data.endDate),
+      startDate: formatDisplayDate(data.startDate ?? ""),
+      endDate: data.current ? "" : formatDisplayDate(data.endDate ?? ""),
     };
 
     onChange([...entries, formattedEntry]);
@@ -69,7 +70,10 @@ const EntryForm = ({ type, entries, onChange }) => {
   });
 
   const handleDelete = (index: number) => {
-    const newEntries = entries.filter((_: any, i: number) => i !== index);
+    const newEntries: Entry[] = entries.filter(
+      (_: Entry, i: number) => i !== index
+    );
+
     onChange(newEntries);
   };
 
@@ -83,7 +87,7 @@ const EntryForm = ({ type, entries, onChange }) => {
 
     await improveWithAIFn({
       current: description,
-      type: type.toLowerCase(), // 'experience', 'education', or 'project'
+      type: type.toLowerCase() as "experience" | "education" | "project",
     });
   };
 
