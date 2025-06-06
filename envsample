@@ -1,0 +1,15 @@
+# Clerk Authentication Keys
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_publishable_key_here
+CLERK_SECRET_KEY=sk_test_your_secret_key_here
+
+# Clerk URLs for Authentication Flow
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/onboarding
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/onboarding
+
+# Database Connection URL (PostgreSQL)
+DATABASE_URL=postgresql://username:password@host:port/database?sslmode=require
+
+# Gemini API Key for AI Integration
+GEMINI_API_KEY=your_google_gemini_api_key_here
