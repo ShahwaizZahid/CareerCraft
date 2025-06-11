@@ -44,9 +44,9 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-:root {
+/* :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: hsl(0 0% 100%);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -77,9 +77,43 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-}
+} */
 
-.dark {
+:root {
+  --radius: 0.625rem;
+  --background: hsl(0 0% 100%); /* White (unchanged) */
+  --foreground: rgb(37, 37, 37);
+  --card: rgb(255, 255, 255);
+  --card-foreground: rgb(37, 37, 37);
+  --popover: rgb(255, 255, 255);
+  --popover-foreground: rgb(37, 37, 37);
+  --primary: rgb(52, 52, 52);
+  --primary-foreground: rgb(251, 251, 251);
+  --secondary: rgb(247, 247, 247);
+  --secondary-foreground: rgb(52, 52, 52);
+  --muted: rgb(247, 247, 247);
+  --muted-foreground: rgb(142, 142, 142);
+  --accent: rgb(247, 247, 247);
+  --accent-foreground: rgb(52, 52, 52);
+  --destructive: rgb(233, 77, 52);
+  --border: rgb(235, 235, 235);
+  --input: rgb(235, 235, 235);
+  --ring: rgb(181, 181, 181);
+  --chart-1: rgb(255, 145, 56);
+  --chart-2: rgb(75, 192, 192);
+  --chart-3: rgb(82, 109, 196);
+  --chart-4: rgb(255, 224, 83);
+  --chart-5: rgb(255, 192, 77);
+  --sidebar: rgb(251, 251, 251);
+  --sidebar-foreground: rgb(37, 37, 37);
+  --sidebar-primary: rgb(52, 52, 52);
+  --sidebar-primary-foreground: rgb(251, 251, 251);
+  --sidebar-accent: rgb(247, 247, 247);
+  --sidebar-accent-foreground: rgb(52, 52, 52);
+  --sidebar-border: rgb(235, 235, 235);
+  --sidebar-ring: rgb(181, 181, 181);
+}
+/* .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -111,8 +145,41 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-}
+} */
 
+.dark {
+  --background: rgb(37, 37, 37);
+  --foreground: rgb(251, 251, 251);
+  --card: rgb(52, 52, 52);
+  --card-foreground: rgb(251, 251, 251);
+  --popover: rgb(52, 52, 52);
+  --popover-foreground: rgb(251, 251, 251);
+  --primary: rgb(235, 235, 235);
+  --primary-foreground: rgb(52, 52, 52);
+  --secondary: rgb(69, 69, 69);
+  --secondary-foreground: rgb(251, 251, 251);
+  --muted: rgb(69, 69, 69);
+  --muted-foreground: rgb(181, 181, 181);
+  --accent: rgb(69, 69, 69);
+  --accent-foreground: rgb(251, 251, 251);
+  --destructive: rgb(233, 77, 52);
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: rgb(142, 142, 142);
+  --chart-1: rgb(101, 97, 255);
+  --chart-2: rgb(77, 217, 197);
+  --chart-3: rgb(255, 192, 77);
+  --chart-4: rgb(196, 97, 255);
+  --chart-5: rgb(255, 119, 77);
+  --sidebar: rgb(52, 52, 52);
+  --sidebar-foreground: rgb(251, 251, 251);
+  --sidebar-primary: rgb(101, 97, 255);
+  --sidebar-primary-foreground: rgb(251, 251, 251);
+  --sidebar-accent: rgb(69, 69, 69);
+  --sidebar-accent-foreground: rgb(251, 251, 251);
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: rgb(142, 142, 142);
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;
