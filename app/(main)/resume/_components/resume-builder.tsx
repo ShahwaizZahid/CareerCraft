@@ -24,12 +24,14 @@ import MDEditor from "@uiw/react-md-editor";
 import { entriesToMarkdown } from "@/app/lib/helper";
 import { toast } from "sonner";
 import { ResumeBuilderProps } from "@/app/types/resumeTypes/types";
+import html2pdf from "html2pdf.js";
 
 export default function ResumeBuilder({ initialContent }: ResumeBuilderProps) {
   const [activeTab, setActiveTab] = useState("edit");
   const [previewContent, setPreviewContent] = useState(initialContent);
   const { user } = useUser();
   const [resumeMode, setResumeMode] = useState("preview");
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const {
     control,
@@ -123,6 +125,29 @@ export default function ResumeBuilder({ initialContent }: ResumeBuilderProps) {
     }
   };
 
+  const generatePDF = async () => {
+    setIsGenerating(true);
+    try {
+      const element = document.getElementById("resume-pdf");
+      const opt = {
+        margin: [15, 15],
+        filename: "resume.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as const },
+      };
+
+      if (element) {
+        await html2pdf().set(opt).from(element).save();
+      } else {
+        toast.error("Could not find resume content to generate PDF.");
+      }
+    } catch (error) {
+      console.error("PDF generation error:", error);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
   return (
     <div data-color-mode="light" className="space-y-4">
       <div className="flex flex-col md:flex-row justify-between items-center gap-2">
@@ -147,9 +172,18 @@ export default function ResumeBuilder({ initialContent }: ResumeBuilderProps) {
               </>
             )}
           </Button>
-          <Button>
-            <Download className="h-4 w-4" />
-            Download PDF
+          <Button onClick={generatePDF} disabled={isGenerating}>
+            {isGenerating ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Generating PDF...
+              </>
+            ) : (
+              <>
+                <Download className="h-4 w-4" />
+                Download PDF
+              </>
+            )}
           </Button>
         </div>
       </div>
