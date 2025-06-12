@@ -43,7 +43,7 @@ const DashboardView = (insights: IndustryInsightProps) => {
   }));
 
   const getDemandLevelColor = (level: string) => {
-    switch (level.toLowerCase()) {
+    switch (level) {
       case "High":
         return "bg-green-500";
       case "Medium":
@@ -122,7 +122,7 @@ const DashboardView = (insights: IndustryInsightProps) => {
             <BriefcaseIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{insights.demandLevel}</div>
+            <div className="text-2xl font-bold ">{insights.demandLevel}</div>
             <div
               className={`h-2 w-full rounded-full mt-2 ${getDemandLevelColor(
                 insights.demandLevel
