@@ -19,7 +19,8 @@ export default function StatsCards({ assessments }: StatsCardsProps) {
 
   const getLatestAssessment = () => {
     if (!assessments?.length) return null;
-    return assessments[0];
+    console.log(assessments[assessments.length - 1]);
+    return assessments[assessments.length - 1];
   };
 
   const getTotalQuestions = () => {
