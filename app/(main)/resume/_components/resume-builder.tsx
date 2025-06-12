@@ -148,6 +148,21 @@ export default function ResumeBuilder({ initialContent }: ResumeBuilderProps) {
       setIsGenerating(false);
     }
   };
+
+  const saveMakeDown = async () => {
+    try {
+      const formattedContent = previewContent
+        .replace(/\n/g, "\n") // Normalize newlines
+        .replace(/\n\s*\n/g, "\n\n") // Normalize multiple newlines to double newlines
+        .trim();
+
+      console.log(previewContent, formattedContent);
+      await saveResumeFn(previewContent);
+    } catch (error) {
+      console.error("Save error:", error);
+    }
+  };
+
   return (
     <div data-color-mode="light" className="space-y-4">
       <div className="flex flex-col md:flex-row justify-between items-center gap-2">
@@ -157,13 +172,22 @@ export default function ResumeBuilder({ initialContent }: ResumeBuilderProps) {
         <div className="space-x-2 flex">
           <Button
             variant="destructive"
-            onClick={handleSubmit(onSubmit)}
+            onClick={
+              activeTab == "preview"
+                ? () => saveMakeDown()
+                : handleSubmit(onSubmit)
+            }
             disabled={!!isSaving}
           >
             {isSaving ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Saving...
+              </>
+            ) : activeTab == "preview" ? (
+              <>
+                <Save className="h-4 w-4" />
+                Save
               </>
             ) : (
               <>
