@@ -21,8 +21,6 @@ export default function QuizResult({
   hideStartNew = false,
   onStartNew,
 }: QuizResultProps) {
-  console.log("result", result);
-
   if (!result) return null;
   const questions = result.questions as QuizQuestion[];
 
