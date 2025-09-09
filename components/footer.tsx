@@ -65,13 +65,13 @@ export default function Footer() {
                 Build Resume
               </Link>
               <Link
-                href="//ai-cover-letter"
+                href="/ai-cover-letter"
                 className="block text-gray-300 hover:text-white transition-colors duration-200"
               >
                 Cover Letter
               </Link>
               <Link
-                href="//interview"
+                href="/interview"
                 className="block text-gray-300 hover:text-white transition-colors duration-200"
               >
                 Interview Prep
