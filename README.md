@@ -66,3 +66,35 @@ An AI-powered full-stack career preparation platform that helps users enhance th
 
 ---
 
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- PostgreSQL database
+- Clerk account (for authentication)
+- Google AI Studio API key (for Gemini)
+- Vercel account (for deployment)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/career-craft.git
+cd career-craft
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env
+# Fill in .env with your keys (see Environment Variables section)
+
+# Set up database
+npx prisma generate
+npx prisma migrate dev --name init
+
+# Start development server
+npm run dev
+```
+
