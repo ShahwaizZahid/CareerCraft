@@ -19,19 +19,19 @@ An AI-powered full-stack career preparation platform that helps users enhance th
 
 ## 🧑‍💻 Tech Stack
 
-| Layer      | Tools / Libraries                                    |
-| ---------- | ---------------------------------------------------- |
-| Frontend   | Next.js 15, TypeScript, Tailwind CSS, Shadcn UI     |
-| Backend    | Next.js API Routes, Node.js, Prisma ORM             |
-| AI         | Google Gemini API (@google/generative-ai)           |
-| Auth       | Clerk (@clerk/nextjs)                               |
-| Database   | PostgreSQL (managed with Prisma)                    |
-| PDF Export | React-PDF, jsPDF, html2pdf.js                       |
-| Forms      | React Hook Form, Zod validation                      |
-| UI/UX      | Radix UI primitives, Lucide icons, Sonner toasts    |
-| Charts     | Recharts for data visualization                      |
-| Scheduler  | Inngest (for background jobs/cron tasks)            |
-| Deployment | Vercel                                               |
+| Layer      | Tools / Libraries                                |
+| ---------- | ------------------------------------------------ |
+| Frontend   | Next.js 15, TypeScript, Tailwind CSS, Shadcn UI  |
+| Backend    | Next.js API Routes, Node.js, Prisma ORM          |
+| AI         | Google Gemini API (@google/generative-ai)        |
+| Auth       | Clerk (@clerk/nextjs)                            |
+| Database   | PostgreSQL (managed with Prisma)                 |
+| PDF Export | React-PDF, jsPDF, html2pdf.js                    |
+| Forms      | React Hook Form, Zod validation                  |
+| UI/UX      | Radix UI primitives, Lucide icons, Sonner toasts |
+| Charts     | Recharts for data visualization                  |
+| Scheduler  | Inngest (for background jobs/cron tasks)         |
+| Deployment | Vercel                                           |
 
 ---
 
@@ -96,5 +96,31 @@ npx prisma migrate dev --name init
 
 # Start development server
 npm run dev
+```
+
+### Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+# Clerk Authentication Keys
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_publishable_key_here
+CLERK_SECRET_KEY=sk_test_your_secret_key_here
+
+# Clerk URLs for Authentication Flow
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/onboarding
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/onboarding
+
+# Database Connection URL (PostgreSQL)
+DATABASE_URL=postgresql://username:password@host:port/database?sslmode=require
+
+# Gemini API Key for AI Integration
+GEMINI_API_KEY=your_google_gemini_api_key_here
+
+# Inngest Configuration (for background jobs)
+INNGEST_EVENT_KEY=your_inngest_event_key
+INNGEST_SIGNING_KEY=your_inngest_signing_key
 ```
 
