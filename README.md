@@ -124,3 +124,69 @@ INNGEST_EVENT_KEY=your_inngest_event_key
 INNGEST_SIGNING_KEY=your_inngest_signing_key
 ```
 
+---
+
+## 🔧 Development
+
+### Available Scripts
+
+```bash
+npm run dev          # Start development server with Turbopack
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run vercel-build # Build with Prisma generation for Vercel
+```
+
+### Key Dependencies
+
+- **@clerk/nextjs**: Authentication and user management
+- **@google/generative-ai**: Gemini AI integration
+- **@prisma/client**: Database ORM
+- **@react-pdf/renderer**: PDF generation
+- **@uiw/react-md-editor**: Markdown editor for resumes
+- **inngest**: Background job processing
+- **recharts**: Data visualization
+- **react-hook-form**: Form handling
+- **zod**: Schema validation
+
+---
+
+## 📱 Features Deep Dive
+
+### Authentication & Onboarding
+
+- Secure user registration and login via Clerk
+- Custom onboarding flow to collect user preferences
+- Role-based access control
+
+### Resume Builder
+
+- Markdown-based resume editing with live preview
+- Multiple resume templates
+- PDF export functionality
+- Real-time collaboration features
+
+### AI-Powered Cover Letters
+
+- Job-specific cover letter generation
+- Customizable templates
+- AI suggestions for improvements
+- Export to multiple formats
+
+### Mock Interview System
+
+- Role-specific interview questions
+- Performance tracking and analytics
+- AI-powered feedback
+- Progress visualization
+
+### Career Insights Dashboard
+
+- Personalized career recommendations
+- Industry trend analysis
+- Skill gap identification
+- Progress tracking with charts
+
+---
+
