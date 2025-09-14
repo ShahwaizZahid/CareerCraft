@@ -190,3 +190,41 @@ npm run vercel-build # Build with Prisma generation for Vercel
 
 ---
 
+## 🚀 Deployment
+
+### Vercel Deployment
+
+1. Connect your GitHub repository to Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
+
+### Database Setup
+
+1. Create a PostgreSQL database (recommended: Neon, Supabase, or Railway)
+2. Update `DATABASE_URL` in environment variables
+3. Run migrations: `npx prisma migrate deploy`
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit changes: `git commit -m 'Add amazing feature'`
+4. Push to branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- [Shadcn/ui](https://ui.shadcn.com/) for the beautiful UI components
+- [Clerk](https://clerk.com/) for authentication
+- [Google AI](https://ai.google.dev/) for Gemini API
+- [Vercel](https://vercel.com/) for hosting and deployment
